@@ -1,3 +1,4 @@
-**Which customers with orders above average order value?**
+**Find employees hired on weekend?**
 
-<img width="1115" height="587" alt="image" src="https://github.com/user-attachments/assets/f2e9705c-596f-48ea-99f5-2c913ae7f121" />
+<img width="1204" height="737" alt="image" src="https://github.com/user-attachments/assets/d25c4c2c-30de-4477-8060-780edc8bb4a6" />
+
