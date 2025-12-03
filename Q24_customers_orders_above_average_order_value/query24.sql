@@ -1,5 +1,5 @@
 
--- Which customers whichr orders are above average order value
+-- Find the customers which orders are above average order value
 select   soh.CustomerID,
 		soh.TotalDue,
 		concat(pp.FirstName, ' ', pp.LastName) as Customer_Name
