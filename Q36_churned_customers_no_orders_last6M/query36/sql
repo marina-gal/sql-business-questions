@@ -1,1 +1,17 @@
-
+-- Which churned customers are there (not orders in the last 6 months)?
+with MaxDate_Data as( -- Calcule the MAX date value of all the database, to have the reference for the previous 6 months
+select     
+	   MAX(CAST(OrderDate as date)) as MaxDate_CustomerOrder
+from sales.SalesOrderHeader)
+---
+SELECT 
+		soh.CustomerID,
+		CONCAT(pp.FirstName, ' ', pp.LastName) as Customer_Name,
+		MAX(CAST(OrderDate as date)) as LastOrder_Date,		-- Here, we calculate the LastOrderDate for each Customer		
+		DATEADD(MONTH, -6, mdd.MaxDate_CustomerOrder) as Last6Month   --- Here the date 6Month before the reference date
+FROM Sales.SalesOrderHeader as soh
+ CROSS JOIN MaxDate_Data as mdd
+ INNER JOIN Sales.Customer AS c ON c.CustomerID = soh.CustomerID
+ INNER JOIN Person.Person AS pp ON pp.BusinessEntityID = c.PersonID
+GROUP BY soh.CustomerID, pp.FirstName, pp.LastName, mdd.MaxDate_CustomerOrder
+   HAVING MAX(OrderDate) < DATEADD(MONTH, -6, MaxDate_CustomerOrder);	---We ONLY take the data which the LastOrderDate of a customer is ouside of the 6months date before the max date.
